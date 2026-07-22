@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velvet Static — Poster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&family=Work+Sans:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #08090B;
+    --paper: #E9E4DA;
+    --cyan: #37E6E6;
+    --magenta: #E63A8C;
+    --amber: #E8A33D;
+    --grain: rgba(233,228,218,0.05);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html,body{
+    background: #050506;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 40px 20px;
+  }
+
+  .poster{
+    position: relative;
+    width: 700px;
+    aspect-ratio: 2 / 3;
+    background: var(--black);
+    overflow: hidden;
+    box-shadow: 0 60px 120px -30px rgba(0,0,0,0.9);
+    color: var(--paper);
+    font-family: 'Work Sans', sans-serif;
+  }
+
+  .poster::before{
+    content:"";
+    position:absolute; inset:0;
+    background: repeating-linear-gradient(
+      0deg, rgba(0,0,0,0.25) 0px, rgba(0,0,0,0.25) 1px,
+      transparent 1px, transparent 3px
+    );
+    mix-blend-mode: overlay;
+    z-index: 5;
+    pointer-events:none;
+  }
+
+  .art{
+    position: relative;
+    height: 62%;
+    background:
+      radial-gradient(ellipse 120% 90% at 50% 20%, #1a1420 0%, #08090B 65%);
+    overflow: hidden;
+  }
+
+  .art svg{ position:absolute; inset:0; width:100%; height:100%; }
+
+  .horizon-glow{
+    position:absolute;
+    left:0; right:0; bottom:38%;
+    height: 140px;
+    background: radial-gradient(ellipse 60% 100% at 50% 100%, rgba(230,58,140,0.55), transparent 70%);
+    filter: blur(6px);
+    z-index: 1;
+  }
+
+  .figure{
+    position:absolute;
+    bottom: 0; left:50%;
+    transform: translateX(-50%);
+    width: 180px;
+    z-index: 2;
+  }
+
+  .signal-lines{
+    position:absolute;
+    bottom: 30%;
+    left:0; right:0;
+    height:180px;
+    z-index: 1;
+    opacity: 0.85;
+  }
+
+  .type-block{
+    position: relative;
+    height: 38%;
+    padding: 22px 34px 26px;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: linear-gradient(180deg, #08090B 0%, #0c0d10 100%);
+    border-top: 1px solid rgba(233,228,218,0.08);
+  }
+
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 10px;
+  }
+
+  .title{
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 92px;
+    line-height: 0.86;
+    letter-spacing: 0.01em;
+    position: relative;
+    width: fit-content;
+    color: var(--paper);
+  }
+
+  .title .glitch-layer{
+    position:absolute;
+    top:0; left:0;
+    width:100%;
+    color: transparent;
+    -webkit-text-stroke: 0;
+  }
+  .title .g-cyan{
+    color: var(--cyan);
+    mix-blend-mode: screen;
+    animation: glitchCyan 5s infinite steps(1);
+  }
+  .title .g-magenta{
+    color: var(--magenta);
+    mix-blend-mode: screen;
+    animation: glitchMagenta 5s infinite steps(1);
+  }
+
+  @keyframes glitchCyan{
+    0%, 88%, 100%{ transform: translate(0,0); opacity: 0.9; }
+    89%{ transform: translate(-3px,1px); opacity:0.6; }
+    91%{ transform: translate(2px,-1px); opacity:0.9; }
+    93%{ transform: translate(-2px,0); opacity: 0.5; }
+  }
+  @keyframes glitchMagenta{
+    0%, 88%, 100%{ transform: translate(0,0); opacity: 0.9; }
+    89%{ transform: translate(3px,-1px); opacity:0.5; }
+    91%{ transform: translate(-2px,1px); opacity:0.9; }
+    93%{ transform: translate(2px,0); opacity: 0.6; }
+  }
+
+  .tagline{
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 14.5px;
+    color: rgba(233,228,218,0.75);
+    margin-top: 14px;
+    max-width: 40ch;
+  }
+
+  .divider{
+    height:1px;
+    background: rgba(233,228,218,0.18);
+    margin: 18px 0 14px;
+  }
+
+  .credits{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 0.03em;
+    line-height: 1.7;
+    color: rgba(233,228,218,0.55);
+    text-transform: uppercase;
+  }
+  .credits .studio{
+    color: var(--amber);
+    letter-spacing: 0.15em;
+  }
+
+  .rating-badge{
+    position: absolute;
+    top: 20px; right: 20px;
+    z-index: 6;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    border: 1px solid rgba(233,228,218,0.4);
+    padding: 4px 8px;
+    color: rgba(233,228,218,0.7);
+  }
+
+  .top-meta{
+    position:absolute;
+    top: 20px; left: 20px;
+    z-index: 6;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: rgba(233,228,218,0.5);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 760px){
+    .poster{ width: 100%; max-width: 420px; }
+    .title{ font-size: 58px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="poster">
+
+  <div class="top-meta">A Film By No One In Particular</div>
+  <div class="rating-badge">DIR ▪ 2 H 11 M</div>
+
+  <div class="art">
+    <div class="horizon-glow"></div>
+
+    <svg class="signal-lines" viewBox="0 0 700 180" preserveAspectRatio="none">
+      <polyline points="0,90 60,90 80,40 100,140 120,60 140,110 160,90 700,90"
+        fill="none" stroke="#37E6E6" stroke-width="1.5" opacity="0.5"/>
+      <polyline points="0,100 60,100 80,70 100,120 120,80 140,100 160,100 700,100"
+        fill="none" stroke="#E63A8C" stroke-width="1" opacity="0.4"/>
+    </svg>
+
+    <svg class="figure" viewBox="0 0 180 320" preserveAspectRatio="xMidYMax meet">
+      <ellipse cx="90" cy="60" rx="26" ry="30" fill="#0a0a0d"/>
+      <path d="M50 300 L58 140 Q90 110 122 140 L130 300 Z" fill="#0a0a0d"/>
+      <path d="M50 300 L58 140" stroke="#37E6E6" stroke-width="0.6" opacity="0.35"/>
+      <path d="M130 300 L122 140" stroke="#E63A8C" stroke-width="0.6" opacity="0.35"/>
+    </svg>
+
+    <svg width="100%" height="100%" viewBox="0 0 700 434" preserveAspectRatio="none" style="position:absolute; inset:0; opacity:0.5;">
+      <circle cx="120" cy="60" r="1" fill="#E9E4DA"/>
+      <circle cx="400" cy="40" r="1.4" fill="#E9E4DA"/>
+      <circle cx="600" cy="90" r="1" fill="#E9E4DA"/>
+      <circle cx="250" cy="30" r="0.8" fill="#E9E4DA"/>
+      <circle cx="520" cy="55" r="1.2" fill="#E9E4DA"/>
+      <circle cx="60" cy="120" r="1" fill="#E9E4DA"/>
+    </svg>
+  </div>
+
+  <div class="type-block">
+    <div class="eyebrow">Every frequency remembers</div>
+
+    <div class="title">
+      VELVET<br>STATIC
+      <span class="glitch-layer g-cyan" aria-hidden="true">VELVET<br>STATIC</span>
+      <span class="glitch-layer g-magenta" aria-hidden="true">VELVET<br>STATIC</span>
+    </div>
+
+    <p class="tagline">She found tomorrow's broadcast hiding in yesterday's static.</p>
+
+    <div class="divider"></div>
+
+    <div class="credits">
+      Starring Mira Okonkwo-Blake · Theo Vance · Priya Shenoy &nbsp;|&nbsp;
+      Music by Fielding Cross &nbsp;|&nbsp; Director of Photography Nour Kassab<br>
+      Written &amp; Directed by <span class="studio">Adaeze Reyes-Lindqvist</span><br>
+      <span class="studio">Aftertone Pictures</span> presents a <span class="studio">Long Wave</span> production &nbsp;—&nbsp; In theaters everywhere
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
